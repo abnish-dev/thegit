@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +13,6 @@
 <body class="bg-light">
   <div class="p-3 mb-2 bg-dark text-white">
     <div class="container">
-      <header>  </header>
       <div class="h3">Laravel 6 CRUD application</div>
     </div>
   </div>
