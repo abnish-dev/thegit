@@ -1,30 +1,25 @@
 
-<!DOCTYPE html>
+
+
 <html>
-<head>
-  <meta charset="utf-8">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>Laravel 6.0 CRUD application</title>
-
+  <head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.css')}}">
-  
-</head>
-<body class="bg-light">
-  <div class="p-3 mb-2 bg-dark text-white">
-    <div class="container">
-      <div class="h3">Laravel 6.0 CRUD application</div>
-    </div>
-  </div>
-
+        @include('layouts.app')
+  </head>
+  <body>
   <div class="container">
+      <div class="row">
+        <h2> Laravel CRUD app</h2>
+      </div>
       <div class="row">
         <div class="col md-12 text-right mb-3">
           <a href="{{route('articles')}}" class="btn btn-primary">Back</a>
         </div>
       </div>
     
-      <div class="row"
+      <div class="row" style="margin-bottom: 20px;">
         <div class="col md-12">
           <div class="card">
             <div class="card-header"> <h5>Articles/Add</h5></div>
@@ -63,12 +58,11 @@
                 @endif
                 </div>
 
-                <div class="input-group">
-                  
-                    <label>  Image : </label> 
-                    <input type="file" name="image" id="image"> <br/></br/>
-                
-                </div>
+                <label for="image"> Image </label>
+                    <div class="form-group">
+                        <input type="file" name="image[]" class="form-control" id="image" multiple/>
+                        {!! $errors->first('image', '<small class="text-danger">:message</small>') !!}
+                    </div>
                 
 
                 <div class="form-group">
@@ -80,7 +74,5 @@
           </div>
         </div>
       </div>
-  </div>
-
-</body>
-</html>
+ </body>
+ </html>

@@ -1,30 +1,17 @@
+@include('layouts.app')
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>Laravel 6.0 CRUD application</title>
-
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.css')}}">
-  
-</head>
-<body class="bg-light">
-  <div class="p-3 mb-2 bg-dark text-white">
-    <div class="container">
-      <div class="h3">Laravel 6.0 CRUD application</div>
-    </div>
-  </div>
 
   <div class="container">
+      <div class="row">
+        <h2> Laravel CRUD app</h2>
+      </div>
       <div class="row">
         <div class="col md-12 text-right mb-3">
           <a href="{{route('articles')}}" class="btn btn-primary">Back</a>
         </div>
       </div>
     
-      <div class="row">
+      <div class="row" style="margin-bottom: 20px;">
         <div class="col md-12">
           <div class="card">
             <div class="card-header"> <h5>Articles/Edit</h5></div>
@@ -62,17 +49,39 @@
                 
                 @endif
                 </div>
+<!----Start Edit Multiple Image ---->
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label  class="col-form-label">{{ __('Select Multiple Images') }}</label>
+                    </div>
+                        
 
-                <div class="input-group">
-                   
-                  <label>  Image : </label> 
-                  <input type="file" name="image" id="image"> <br/></br/>
-              
-                  <img src="{{asset('/uploads/article/' . $article->image)}}" width="100px" height="100px"> 
-                  <input type="hidden" value="{{old('image',$article->image)}}" name="old_image">
+                    <div class="col-md-3">
+                         <input type="file" id="file-input" name="images[]" multiple />
+                          <span class="text-danger">{{ $errors->first('image') }}</span>
+                          <div id="thumb-output"></div>
+                    </div>
+                  
+                  </div>
 
+                  <div class="row">
+                    <div class="col-md-6">
+                       @if(count($articleImages)> 0)
+                      <div class="row_gallery_img" style="display: flex;">
+                          @foreach($articleImages as $image)
+                            <div href="javascript:void(0)" class="own_delete_btn" id="{{$image->id}}" title="Delete" style="margin:10px;">
+                                <img id="prv_{{$image->id}}" src="{{asset('uploads/article')}}/{{$image->image}}" height="50" width="60">
+                                <div><i class="fa fa-trash" aria-hidden="true"></i></div>
+                            </div>
+                          @endforeach
+                      </div>
+                    @endif
+                    </div>
+                  </div>
+                    
                 </div>
-                
+  <!----End Edit Multiple Image ---->            
 
                 <div class="form-group">
                   <button type="submit" name="submit" class="btn btn-primary"> Update Articles </button>
@@ -84,6 +93,28 @@
         </div>
       </div>
   </div>
+<script>
+  $(document).ready(function(){
 
-</body>
-</html>
+  $(".own_delete_btn").on('click', function(e){
+    if(confirm("Are you sure to delete?")){
+      var imageid = jQuery(this).attr('id');
+      if(imageid!='') {
+        jQuery.ajax({
+          type : 'GET',
+          url : "/article/remove_image",
+          data:{'imageid': imageid},
+          success:function(response) {
+            if(response = "true"){
+             $('#prv_'+imageid).remove();
+             $('#'+imageid).remove();
+           }
+         }
+       });
+      }
+    }else{
+      return false;
+    }
+  });
+  })
+</script>

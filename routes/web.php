@@ -11,14 +11,19 @@
 |
 */
 
-Route::get('/home/articles', 'ArticleController@show')-> name('articles'); 
+Route::get('/home/articles', 'ArticleController@index')-> name('articles'); 
 Route::get('/home/articles/add', 'ArticleController@addArticle')-> name('articlesAdd'); 
-Route::post('/home/articles/add', 'ArticleController@saveArticle')-> name('articlesSave'); 
+Route::post('/home/articles/add', 'ArticleController@saveArticle')-> name('articlesSave');
+
+Route::get('/home/articles/show/{id}','ArticleController@showArticle')-> name('articlesShow'); 
+
 Route::get('/home/articles/edit/{id}','ArticleController@editArticle')-> name('articlesEdit');
 Route::post('/home/articles/edit/{id}','ArticleController@updateArticle')-> name('articlesUpdate');
 Route::get('/home/articles/delete/{id}','ArticleController@deleteArticle')-> name('articlesDelete');
+//Route::get('article/remove_image','ArticleController@remove_image');
 
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

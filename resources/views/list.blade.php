@@ -1,23 +1,19 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
+
+
+  <html>
+  <head>
+    <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel 6.0 CRUD application</title>
-
         <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.css')}}">
-  
-</head>
-<body class="bg-light">
-  <div class="p-3 mb-2 bg-dark text-white">
-    <div class="container">
-      <div class="h3">Laravel 6 CRUD application</div>
-    </div>
-  </div>
 
+        @include('layouts.app')
+  </head>
+  <body>
   <div class="container">
+    <div class="row">
+        <h2> Laravel CRUD app</h2>
+      </div>
       <div class="row">
         <div class="col-md-12 text-right mb-3">
           <a href="{{route('articlesAdd')}}" class="btn btn-primary">ADD</a>
@@ -40,7 +36,7 @@
 
       </div>
     
-      <div class="row">
+      <div class="row" style="margin-bottom: 20px;">
         <div class="col-md-12">
           <div class="card">
             <div class="card-header"> <h5>Articles/List</h5></div>
@@ -52,8 +48,8 @@
                     <th>Title</th>
                     <th>Author</th>
                     <th>Created</th>
-                    <th scope="col"> Image </th>
                     <th width="100">Edit</th>
+                    <th>Show</th>
                     <th width="100">Delete</th>
                   </tr>
                 </thead>
@@ -64,9 +60,9 @@
                         <td>{{$article->title}}</td>
                         <td>{{$article->author}}</td>
                         <td>{{$article->created_at}}</td>
-                        <td> <img src="{{asset('/uploads/article/' . $article->image)}}" width="100px" height="100px"></td>
-
+                        
                         <td><a href="{{route('articlesEdit',['id' => $article->id])}}" class="btn btn-primary"> Edit</a></td>
+                        <td><a href="{{route('articlesShow',['id' => $article->id])}}" class="btn btn-success"> Show </a></td>
                         <td><a href="#" onclick="deleteArticle({{$article->id}}) ;" class="btn btn-danger"> Delete</a></td>  
                       </tr>
                     @endforeach
@@ -82,8 +78,6 @@
       </div>
   </div>
 
-</body>
-</html>
 
 <script type="text/javascript">
     function deleteArticle($id)
@@ -94,3 +88,5 @@
         }
     }
 </script>
+</body>
+</html>
